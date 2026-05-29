@@ -255,10 +255,21 @@ class BibleProvider with ChangeNotifier {
 
   // Audio Playback
   bool get isAudioExists => _audioService.chapterAudioExists(_selectedBook, _selectedChapter, _version);
+  
+  bool isVerseAudioExists(String book, int chapter, int verse) {
+    return _audioService.verseAudioExists(book, chapter, verse, _version);
+  }
 
   Future<void> playAudio() async {
     if (isAudioExists) {
       await _audioService.playChapter(_selectedBook, _selectedChapter);
+      notifyListeners();
+    }
+  }
+
+  Future<void> playVerseAudio(String book, int chapter, int verse) async {
+    if (isVerseAudioExists(book, chapter, verse)) {
+      await _audioService.playVerse(book, chapter, verse);
       notifyListeners();
     }
   }

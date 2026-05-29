@@ -31,10 +31,9 @@ class AudioService {
   Future<void> playChapter(String book, int chapter) async {
     await init();
     final key = "${book.toUpperCase()}_FULL_CH_$chapter";
-    final fileId = _audioMap[key];
-    if (fileId == null) return;
+    if (!_audioMap.containsKey(key)) return;
 
-    final url = "https://docs.google.com/uc?export=download&id=$fileId";
+    final url = "https://github.com/lahirutw85/online-bible-app/releases/download/audio-assets/$key.mp3";
     _playingId = "chapter-$book-$chapter";
     
     try {
@@ -42,6 +41,29 @@ class AudioService {
       await _audioPlayer.play(UrlSource(url));
     } catch (e) {
       print("Error playing audio: $e");
+      _playingId = null;
+    }
+  }
+
+  bool verseAudioExists(String book, int chapter, int verse, String version) {
+    if (version != 'SINBIBLE') return false;
+    final key = "${book.toUpperCase()}_${chapter}_$verse";
+    return _audioMap.containsKey(key);
+  }
+
+  Future<void> playVerse(String book, int chapter, int verse) async {
+    await init();
+    final key = "${book.toUpperCase()}_${chapter}_$verse";
+    if (!_audioMap.containsKey(key)) return;
+
+    final url = "https://github.com/lahirutw85/online-bible-app/releases/download/audio-assets/$key.mp3";
+    _playingId = "verse-$book-$chapter-$verse";
+
+    try {
+      await _audioPlayer.stop();
+      await _audioPlayer.play(UrlSource(url));
+    } catch (e) {
+      print("Error playing verse audio: $e");
       _playingId = null;
     }
   }

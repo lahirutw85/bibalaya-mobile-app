@@ -235,6 +235,29 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                if (provider.isVerseAudioExists(verse.book, verse.chapter, verse.verse)) ...[
+                  const SizedBox(width: 8),
+                  IconButton(
+                    icon: Icon(
+                      provider.playingAudioId == "verse-${verse.book}-${verse.chapter}-${verse.verse}"
+                          ? Icons.volume_up
+                          : Icons.volume_mute,
+                      color: provider.playingAudioId == "verse-${verse.book}-${verse.chapter}-${verse.verse}"
+                          ? accentColor
+                          : Colors.grey,
+                      size: 18,
+                    ),
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(),
+                    onPressed: () {
+                      if (provider.playingAudioId == "verse-${verse.book}-${verse.chapter}-${verse.verse}") {
+                        provider.stopAudio();
+                      } else {
+                        provider.playVerseAudio(verse.book, verse.chapter, verse.verse);
+                      }
+                    },
+                  ),
+                ],
               ],
             ),
             // Render Cross References
