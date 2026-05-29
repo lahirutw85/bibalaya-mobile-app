@@ -1,0 +1,38 @@
+name: bibalaya_mobile_app
+description: "A modern Sinhala, Tamil, and English Bible application."
+version: 1.0.0+1
+
+publish_to: 'none'
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.6
+  provider: ^6.1.2
+  shared_preferences: ^2.2.3
+  http: ^1.2.0
+  audioplayers: ^6.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/logo.jpg
+    - assets/data/books.json
+    - assets/data/books_en.json
+    - assets/data/books_ta.json
+    - assets/data/audio_map.json
+    - assets/data/verse_counts.json
+    - assets/data/sin_simple.json
+    - assets/data/sinnrv2018.json
+    - assets/data/sirov.json
+    - assets/data/ta_movr.json
